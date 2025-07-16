@@ -7,7 +7,7 @@ Welcome to the **Daily Diet API**!s
 
 This project is a backend application designed to help users track their daily meals, monitor their diet, and maintain a healthy lifestyle. It's built with a modern, scalable, and maintainable architecture to ensure a great developer experience and a reliable service.
 
-Project requirements reference: [Requirements](https://efficient-sloth-d85.notion.site/Desafio-02-be7cdb37aaf74ba898bc6336427fa410)
+Based on the following [Project Requirements](https://efficient-sloth-d85.notion.site/Desafio-02-be7cdb37aaf74ba898bc6336427fa410)
 
 ## ✨ Features
 
