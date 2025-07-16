@@ -7,5 +7,10 @@ export default function checkJwt(req: FastifyRequest, res: FastifyReply, server:
     return res.status(401).send({ status: 'error', message: 'Unauthorized' });
   }
 
-  server.jwt.verify(token.split(' ')[1]);
+  try {
+    const decoded = server.jwt.verify(token) as { id: string; date: Date };
+    req.userId = decoded.id;
+  } catch (error) {
+    return res.status(401).send({ status: 'error', message: 'Unauthorized' });
+  }
 }
