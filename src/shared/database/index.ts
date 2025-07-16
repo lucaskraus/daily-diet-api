@@ -3,12 +3,12 @@ import { knex as setupKnex, Knex } from 'knex';
 export const config: Knex.Config = {
   client: 'sqlite',
   connection: {
-    filename: './db/db.sqlite',
+    filename: './src/shared/database/db.sqlite',
   },
   useNullAsDefault: true,
   migrations: {
     extension: 'ts',
-    directory: './db/migrations',
+    directory: './src/shared/database/migrations',
   },
 };
 
