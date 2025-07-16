@@ -6,7 +6,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/db/*": ["./db/*"]
+      "@/db/*": ["./src/shared/database/*"],
+      "@/types/*": ["./src/@types/*"]
     }
   }
 }
