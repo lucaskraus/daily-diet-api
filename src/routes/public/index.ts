@@ -1,14 +1,17 @@
-import { FastifyInstance } from 'fastify';
+import fastify, { FastifyInstance } from 'fastify';
 import { knex } from '@/db/index';
 import { LoginSchema, UserSchema } from '@/types/users';
 import { randomUUID } from 'node:crypto';
+import { env } from '@/env';
 
 export async function publicRoutes(server: FastifyInstance) {
   server.post('/users', async (req, res) => {
     const { data, error } = UserSchema.safeParse(req.body);
 
     if (error) {
-      return res.status(400).send({ error: 'Invalid request body', details: error });
+      return res
+        .status(400)
+        .send({ status: 'error', message: 'Invalid request body', details: error });
     }
 
     const { name, email, password } = data;
@@ -34,8 +37,17 @@ export async function publicRoutes(server: FastifyInstance) {
       return res.status(401).send({ error: 'Invalid credentials' });
     }
 
-    const loginDate = new Date().toISOString();
+    const loginDate = new Date();
 
-    return res.status(200).send({ loginDate, message: `User ${user.name} logged in successfully` });
+    const token = server.jwt.sign(
+      { id: user.id, secret: env.JWT_SECRET, date: loginDate },
+      { expiresIn: '1h' },
+    );
+
+    return res.status(200).send({
+      loginDate: loginDate.toISOString(),
+      message: `User ${user.name} logged in successfully`,
+      token,
+    });
   });
 }

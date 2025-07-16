@@ -16,6 +16,8 @@
     "migrate:latest": "npm run knex -- migrate:latest"
   },
   "dependencies": {
+    "@fastify/jwt": "^9.1.0",
+    "dotenv": "^17.2.0",
     "fastify": "^5.4.0",
     "knex": "^3.1.0",
     "sqlite3": "^5.1.7",
