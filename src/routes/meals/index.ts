@@ -3,7 +3,7 @@ import checkJwt from '@/middlewares/check-jwt';
 import { FastifyInstance } from 'fastify';
 import { MealSchema, PatchMealSchema } from '@/schemas/meals';
 import { randomUUID } from 'node:crypto';
-import { Meal } from '@/types/meals';
+import { Meal } from '@/@types/meals';
 
 export default async function mealsRoutes(server: FastifyInstance) {
   server.addHook('onRequest', (req, res, done) => {
