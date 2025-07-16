@@ -1,3 +1,12 @@
 {
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "db/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/db/*": ["./db/*"]
+    }
+  }
 }

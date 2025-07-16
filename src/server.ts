@@ -1,10 +1,9 @@
 import fastify from 'fastify';
+import { publicRoutes } from '@/routes/public';
 
 const server = fastify();
 
-server.get('/', async (req, res) => {
-  res.send('Hello World');
-});
+server.register(publicRoutes);
 
 server.listen({ port: 3333, host: '0.0.0.0' }, (err, address) => {
   if (err) {
