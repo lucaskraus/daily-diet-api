@@ -3,7 +3,7 @@ interface Meal {
   name: string;
   description: string;
   calories: number;
-  isInDiet: boolean;
+  is_in_diet: number | boolean;
 }
 
 export type { Meal };

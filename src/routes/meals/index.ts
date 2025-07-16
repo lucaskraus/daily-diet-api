@@ -29,11 +29,35 @@ export default async function mealsRoutes(server: FastifyInstance) {
   });
 
   server.get('/', async (req, res) => {
-    const meals = await knex('meals').where('user_id', req.userId);
+    const { isInDiet, date } = req.query as { isInDiet: string; date: string };
 
-    const totalCalories = meals.reduce((sum: number, meal: Meal) => sum + meal.calories, 0);
+    let query = knex('meals').where('user_id', req.userId);
 
-    return res.status(200).send({ totalCalories, totalMeals: meals.length, data: meals });
+    if (isInDiet) {
+      query = query.andWhere('is_in_diet', isInDiet === 'true' ? 1 : 0);
+    }
+
+    if (date) {
+      query = query.andWhereRaw('DATE("date") = ?', [date]);
+    }
+
+    let totalCalories = 0;
+    let totalMealsInDiet = 0;
+
+    const meals = (await query).map((meal: Meal) => {
+      const isInDiet = meal.is_in_diet === 1;
+      if (isInDiet) totalMealsInDiet++;
+      totalCalories += meal.calories;
+
+      return {
+        ...meal,
+        is_in_diet: isInDiet,
+      };
+    });
+
+    const totalMeals = meals.length;
+
+    return res.status(200).send({ totalCalories, totalMealsInDiet, totalMeals, data: meals });
   });
 
   server.get('/:id', async (req, res) => {
