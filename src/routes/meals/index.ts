@@ -33,7 +33,7 @@ export default async function mealsRoutes(server: FastifyInstance) {
 
     const totalCalories = meals.reduce((sum: number, meal: Meal) => sum + meal.calories, 0);
 
-    return res.status(200).send({ totalCalories, data: meals });
+    return res.status(200).send({ totalCalories, totalMeals: meals.length, data: meals });
   });
 
   server.get('/:id', async (req, res) => {
@@ -45,5 +45,23 @@ export default async function mealsRoutes(server: FastifyInstance) {
     }
 
     return res.status(200).send({ ...meal });
+  });
+
+  server.patch('/:id', async (req, res) => {
+    const { id } = req.params as { id: string };
+    const { name, description, calories, isInDiet } = MealSchema.parse(req.body);
+
+    const meal = await knex('meals').where({ id, user_id: req.userId }).first();
+
+    if (!meal) {
+      return res.status(404).send({ status: 'error', message: 'Meal not found' });
+    }
+
+    const updatedMeal = await knex('meals')
+      .where({ id, user_id: req.userId })
+      .update({ name, description, calories, is_in_diet: isInDiet })
+      .returning('*');
+
+    return res.status(200).send({ message: 'Meal updated successfully', data: updatedMeal });
   });
 }
