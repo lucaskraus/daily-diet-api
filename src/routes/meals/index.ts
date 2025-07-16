@@ -64,4 +64,17 @@ export default async function mealsRoutes(server: FastifyInstance) {
 
     return res.status(200).send({ message: 'Meal updated successfully', data: updatedMeal });
   });
+
+  server.delete('/:id', async (req, res) => {
+    const { id } = req.params as { id: string };
+    const meal = await knex('meals').where({ id, user_id: req.userId }).first();
+
+    if (!meal) {
+      return res.status(404).send({ status: 'error', message: 'Meal not found' });
+    }
+
+    await knex('meals').where({ id, user_id: req.userId }).delete();
+
+    return res.status(200).send({ message: 'Meal deleted successfully', data: meal });
+  });
 }
