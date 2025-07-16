@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "36291312-cf4d-4ea0-8a7d-5e651f593846",
+		"name": "Daily Diet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38258054"
+	},
+	"item": [
+		{
+			"name": "Meals",
+			"item": [
+				{
+					"name": "[id]",
+					"item": [
+						{
+							"name": "List Single Meal",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/meals/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"meals",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "37d33077-8e05-4f0e-936e-17c7c63a2b20"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Meal",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"My breakfeast\",\r\n    \"description\": \"Eggs and croissant\",\r\n    \"calories\": 500,\r\n    \"isInDiet\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/meals/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"meals",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "ef9df650-29b0-44d0-a754-a46f022551f0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Meal",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/meals/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"meals",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "42a1b475-8ac0-47c3-871a-803a314cb0e5"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "List Meals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/meals?date=2025-07-16",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meals"
+							],
+							"query": [
+								{
+									"key": "isInDiet",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2025-07-16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Meal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My meal #8\",\r\n    \"description\": \"Eggs, bread and salad\",\r\n    \"calories\": 150,\r\n    \"isInDiet\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/meals"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Felipe Mattarazzo\",\r\n    \"email\": \"test123@gmail.com\",\r\n    \"password\": \"senha123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"try {\r",
+									"  const response = pm.response.json();\r",
+									"  if (response.token) {\r",
+									"    pm.environment.set(\"token\", response.token);\r",
+									"    console.log(\"Token salvo:\", response.token);\r",
+									"  } else {\r",
+									"    console.warn(\"A resposta não contém a propriedade 'token'.\");\r",
+									"  }\r",
+									"} catch (e) {\r",
+									"  console.error(\"Erro ao processar JSON da resposta:\", e);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test123@gmail.com\",\r\n    \"password\": \"senha123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/login"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
