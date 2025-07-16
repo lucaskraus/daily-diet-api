@@ -4,7 +4,7 @@ import { LoginSchema, UserSchema } from '@/types/users';
 import { randomUUID } from 'node:crypto';
 import { env } from '@/env';
 
-export async function publicRoutes(server: FastifyInstance) {
+export default async function publicRoutes(server: FastifyInstance) {
   server.post('/users', async (req, res) => {
     const { data, error } = UserSchema.safeParse(req.body);
 
