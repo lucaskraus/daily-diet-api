@@ -1,5 +1,8 @@
 # 🥗 Daily Diet API
 
+> [!NOTE]
+> While Fastify offers great flexibility in project structure, this project uses a **Modular Architecture**. I chose this approach as part of my learning journey with Node.js to gain experience with patterns commonly found in real-world, large-scale applications.
+
 Welcome to the **Daily Diet API**!s
 
 This project is a backend application designed to help users track their daily meals, monitor their diet, and maintain a healthy lifestyle. It's built with a modern, scalable, and maintainable architecture to ensure a great developer experience and a reliable service.
