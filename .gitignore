@@ -9,7 +9,7 @@ dist
 
 # Database
 
-db/*.sqlite
+src/shared/database/*.sqlite
 
 
 # Logs
