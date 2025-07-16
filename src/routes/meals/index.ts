@@ -35,4 +35,15 @@ export default async function mealsRoutes(server: FastifyInstance) {
 
     return res.status(200).send({ totalCalories, data: meals });
   });
+
+  server.get('/:id', async (req, res) => {
+    const { id } = req.params as { id: string };
+    const meal = await knex('meals').where({ id, user_id: req.userId }).first();
+
+    if (!meal) {
+      return res.status(404).send({ status: 'error', message: 'Meal not found' });
+    }
+
+    return res.status(200).send({ ...meal });
+  });
 }
