@@ -1,7 +1,7 @@
 import { knex } from '@/db/index';
 import checkJwt from '@/middlewares/check-jwt';
 import { FastifyInstance } from 'fastify';
-import { MealSchema } from '@/schemas/meals';
+import { MealSchema, PatchMealSchema } from '@/schemas/meals';
 import { randomUUID } from 'node:crypto';
 import { Meal } from '@/types/meals';
 
@@ -73,17 +73,20 @@ export default async function mealsRoutes(server: FastifyInstance) {
 
   server.patch('/:id', async (req, res) => {
     const { id } = req.params as { id: string };
-    const { name, description, calories, isInDiet } = MealSchema.parse(req.body);
+    const { name, description, calories, isInDiet } = PatchMealSchema.parse(req.body);
 
     const meal = await knex('meals').where({ id, user_id: req.userId }).first();
 
-    if (!meal) {
-      return res.status(404).send({ status: 'error', message: 'Meal not found' });
-    }
+    if (name) meal.name = name;
+    if (description) meal.description = description;
+    if (calories) meal.calories = calories;
+    if (isInDiet) meal.is_in_diet = isInDiet;
+
+    if (!meal) return res.status(404).send({ status: 'error', message: 'Meal not found' });
 
     const updatedMeal = await knex('meals')
       .where({ id, user_id: req.userId })
-      .update({ name, description, calories, is_in_diet: isInDiet })
+      .update({ ...meal })
       .returning('*');
 
     return res.status(200).send({ message: 'Meal updated successfully', data: updatedMeal });
