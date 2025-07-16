@@ -2,7 +2,7 @@ import { knex } from '@/db/index';
 import checkJwt from '@/middlewares/check-jwt';
 import { FastifyInstance } from 'fastify';
 import { MealSchema } from '@/schemas/meals';
-import { env } from '@/env';
+import { randomUUID } from 'node:crypto';
 
 export default async function mealsRoutes(server: FastifyInstance) {
   server.addHook('onRequest', (req, res, done) => {
@@ -13,14 +13,22 @@ export default async function mealsRoutes(server: FastifyInstance) {
   server.post('/', async (req, res) => {
     const { name, description, calories, isInDiet } = MealSchema.parse(req.body);
 
-    const meal = await knex('meals').insert({
-      name,
-      description,
-      calories,
-      is_in_diet: isInDiet,
-      user_id: req.userId,
-    });
+    const meal = await knex('meals')
+      .insert({
+        id: randomUUID(),
+        user_id: req.userId,
+        name,
+        description,
+        calories,
+        is_in_diet: isInDiet,
+      })
+      .returning('*');
 
     return res.status(201).send({ message: 'Meal created successfully', data: meal });
+  });
+
+  server.get('/', async (req, res) => {
+    const meals = await knex('meals').where('user_id', req.userId);
+    return res.status(200).send({ data: meals });
   });
 }
