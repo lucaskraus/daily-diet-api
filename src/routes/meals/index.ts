@@ -74,7 +74,8 @@ export default async function mealsRoutes(server: FastifyInstance) {
     }
 
     await knex('meals').where({ id, user_id: req.userId }).delete();
+    const date = new Date().toISOString();
 
-    return res.status(200).send({ message: 'Meal deleted successfully', data: meal });
+    return res.status(200).send({ message: 'Meal deleted successfully', date });
   });
 }
