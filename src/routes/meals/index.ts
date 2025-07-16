@@ -3,6 +3,7 @@ import checkJwt from '@/middlewares/check-jwt';
 import { FastifyInstance } from 'fastify';
 import { MealSchema } from '@/schemas/meals';
 import { randomUUID } from 'node:crypto';
+import { Meal } from '@/types/meals';
 
 export default async function mealsRoutes(server: FastifyInstance) {
   server.addHook('onRequest', (req, res, done) => {
@@ -29,6 +30,9 @@ export default async function mealsRoutes(server: FastifyInstance) {
 
   server.get('/', async (req, res) => {
     const meals = await knex('meals').where('user_id', req.userId);
-    return res.status(200).send({ data: meals });
+
+    const totalCalories = meals.reduce((sum: number, meal: Meal) => sum + meal.calories, 0);
+
+    return res.status(200).send({ totalCalories, data: meals });
   });
 }
