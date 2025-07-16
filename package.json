@@ -1,0 +1,23 @@
+{
+  "name": "daily-diet-api",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/lucaskraus/daily-diet-api#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucaskraus/daily-diet-api.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "dev": "npx tsx watch src/server.ts"
+  },
+  "dependencies": {
+    "fastify": "^5.4.0",
+    "tsx": "^4.20.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.14"
+  }
+}
