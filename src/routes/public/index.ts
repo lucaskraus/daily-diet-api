@@ -1,8 +1,7 @@
 import fastify, { FastifyInstance } from 'fastify';
 import { knex } from '@/db/index';
-import { LoginSchema, UserSchema } from '@/types/users';
+import { LoginSchema, UserSchema } from '@/schemas/users';
 import { randomUUID } from 'node:crypto';
-import { env } from '@/env';
 
 export default async function publicRoutes(server: FastifyInstance) {
   server.post('/users', async (req, res) => {
@@ -39,10 +38,7 @@ export default async function publicRoutes(server: FastifyInstance) {
 
     const loginDate = new Date();
 
-    const token = server.jwt.sign(
-      { id: user.id, secret: env.JWT_SECRET, date: loginDate },
-      { expiresIn: '1h' },
-    );
+    const token = server.jwt.sign({ id: user.id, date: loginDate }, { expiresIn: '30m' });
 
     return res.status(200).send({
       loginDate: loginDate.toISOString(),

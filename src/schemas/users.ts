@@ -11,4 +11,9 @@ export const LoginSchema = z.object({
   password: z.string().min(8),
 });
 
+export const TokenSchema = z.object({
+  id: z.string(),
+  date: z.string(),
+});
+
 export type User = z.infer<typeof UserSchema>;
