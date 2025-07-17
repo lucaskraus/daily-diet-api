@@ -49,9 +49,9 @@ export async function getAllMeals(request: FastifyRequest, reply: FastifyReply) 
     };
   });
 
-  const totalMeals = meals.length;
+  const total_meals = meals.length;
 
-  return reply.status(200).send({ total_calories, total_meals_in_diet, totalMeals, data: meals });
+  return reply.status(200).send({ total_calories, total_meals_in_diet, total_meals, data: meals });
 }
 
 export async function getMealById(request: FastifyRequest, reply: FastifyReply) {
