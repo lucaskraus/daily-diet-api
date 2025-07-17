@@ -1,7 +1,8 @@
-import { knex } from '../../shared/database';
+import { knex } from '@/db/index';
+import { User } from '@/types/users';
 
 export class UsersRepository {
-  async create(data) {
+  async create(data: User) {
     return knex('users').insert(data);
   }
 

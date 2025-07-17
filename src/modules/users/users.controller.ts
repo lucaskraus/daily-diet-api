@@ -1,5 +1,4 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { knex } from '../../shared/database';
 import { LoginSchema, UserSchema } from './users.schemas';
 import { randomUUID } from 'crypto';
 import { UsersRepository } from './users.repository';

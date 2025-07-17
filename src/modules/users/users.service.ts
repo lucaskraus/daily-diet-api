@@ -1,14 +1,11 @@
 import { UsersRepository } from './users.repository';
+import { User } from '@/types/users';
 
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async create(data) {
+  async create(data: User) {
     return this.usersRepository.create(data);
-  }
-
-  async getByEmail(email: string) {
-    return this.usersRepository.getByEmail(email);
   }
 
   async getByEmailAndPassword(email: string, password: string) {
