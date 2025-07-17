@@ -56,15 +56,17 @@ To get a local copy up and running, follow these simple steps.
     ```sh
     git clone https://github.com/lucaskraus/daily-diet-api.git
     ```
-2.  Install NPM packages
+2.  Create .env file in the root of directory just like `env.example`
+
+3.  Install NPM packages
     ```sh
     npm install
     ```
-3.  Run the migrations
+4.  Run the migrations
     ```sh
     npm run knex -- migrate:latest
     ```
-4.  Start the server
+5.  Start the server
     ```sh
     npm run dev
     ```
