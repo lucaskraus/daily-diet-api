@@ -1,5 +1,3 @@
-Made with ❤️ by [Lucas Kraus](https://github.com/lucaskraus)
-
 # 🥗 Daily Diet API
 
 > [!NOTE]
@@ -78,3 +76,7 @@ You can explore and test the API endpoints using the Postman collection included
 1.  Open Postman.
 2.  Click on `Import`.
 3.  Select the `postman-collection.json` file from the root of this project.
+
+---
+
+Made with ❤️ by [Lucas Kraus](https://github.com/lucaskraus)
