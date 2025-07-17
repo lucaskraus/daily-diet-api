@@ -35,13 +35,13 @@ export async function getAllMeals(request: FastifyRequest, reply: FastifyReply) 
     date,
   });
 
-  let totalCalories = 0;
-  let totalMealsInDiet = 0;
+  let total_calories = 0;
+  let total_meals_in_diet = 0;
 
   const meals = mealsRaw.map((meal: Meal) => {
     const isInDiet = meal.is_in_diet === 1;
-    if (isInDiet) totalMealsInDiet++;
-    totalCalories += meal.calories;
+    if (isInDiet) total_meals_in_diet++;
+    total_calories += meal.calories;
 
     return {
       ...meal,
@@ -51,7 +51,7 @@ export async function getAllMeals(request: FastifyRequest, reply: FastifyReply) 
 
   const totalMeals = meals.length;
 
-  return reply.status(200).send({ totalCalories, totalMealsInDiet, totalMeals, data: meals });
+  return reply.status(200).send({ total_calories, total_meals_in_diet, totalMeals, data: meals });
 }
 
 export async function getMealById(request: FastifyRequest, reply: FastifyReply) {
