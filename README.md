@@ -1,7 +1,7 @@
 # 🥗 Daily Diet API
 
 > [!NOTE]
-> While Fastify offers great flexibility in project structure, this project uses a **Modular Architecture**. I chose this approach as part of my learning journey with Node.js to gain experience with patterns commonly found in real-world, large-scale applications.
+> While Fastify offers great flexibility in project structure, this project uses a **Modular Architecture** inspired by Clean Architecture. I chose this approach as part of my learning journey with Node.js to gain experience with patterns commonly found in real-world, large-scale applications.
 
 Welcome to the **Daily Diet API**!s
 
